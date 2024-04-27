@@ -1,10 +1,10 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { BottomTabsNavigator } from './presentation/navigators/BottomTabsNavigator'
 
 export const Main = () => {
   return (
-    <View>
-        <Text>Main</Text>
-    </View>
+    <NavigationContainer>
+        <BottomTabsNavigator/>
+    </NavigationContainer>
   )
 }
