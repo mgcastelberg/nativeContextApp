@@ -1,16 +1,32 @@
-import React from 'react'
-import { Text, View } from 'react-native'
-import { styles } from '../../../config/app-theme'
-import { useProfileStore } from '../../store/profile-store';
+import React, { useEffect } from 'react'
+import { Pressable, Text, View } from 'react-native'
+import { styles } from '../../../config/app-theme';
+import { useCounterStore } from '../../store/counter-store';
+import { useNavigation } from '@react-navigation/native';
 
 export const SettingsScreen = () => {
-  const name = useProfileStore( state => state.name );
-  const email = useProfileStore( state => state.email );
-
+  const count = useCounterStore( state => state.counter );
+  const incrementBy = useCounterStore( state => state.incrementBy );
+  // Cambiar a nivel componente
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({
+      title: `Contador ${count}`
+    })
+  }, [ count ]);
+  
   return (
     <View style={ styles.container }>
-        <Text style={ styles.title }>{ name }</Text>
-        <Text style={ styles.title }>{ email }</Text>
+      <Text style={ styles.title }>Count: { count }</Text>
+
+      <Pressable onPress={ () => incrementBy( -1 ) } style={ styles.primaryButton }>
+        <Text>-1</Text>
+      </Pressable>
+
+      <Pressable onPress={ () => incrementBy( 1 ) } style={ styles.primaryButton }>
+        <Text>+1</Text>
+      </Pressable>
+
     </View>
   )
 }
